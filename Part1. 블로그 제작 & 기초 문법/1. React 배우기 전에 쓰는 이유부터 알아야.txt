@@ -1,0 +1,23 @@
+1. React 배우기 전에 쓰는 이유부터 알아야
+
+React를 왜 사용해야함?
+
+장점 1. Single Page Application 만들 때 사용.
+예) 인스타그램, 페이스북 모바일 앱이랑 유사함.
+Js로도 가능하나, 코드가 길고 복잡해짐
+
+장점 2. React를 사용하면 html 재사용 편리
+Vue, Svelte, Preact, SolidJS 등등이 있으나, React가 가장 오래되었고 유저가 가장 많음
+
+장점 3. 같은 문법으로 React Native 같이 앱 개발이 가능하다.
+
+대부분의 회사들이 프론트엔드 직무에서는, React를 기초로 하는 곳이 많다!
+
+강의특징
+1. 알아서 리액트로 코드 짜는 법 알려줌
+2. 어렵게 하지않음.
+3. 실전프로젝트
+
+필요한 사전지식
+1. HTML CSS 조금
+2. JavaScript 변수, 함수, if, for, array, object
