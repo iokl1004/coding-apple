@@ -6,11 +6,13 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import { useState } from 'react';
 import './App.css';
 import data from './data.js';
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
+import Detail from './routes/Detail.js';
 
 function App() {
 
   const [shoes] = useState(data);
+  const navigate =  useNavigate();
 
   return (
     <div className='App'>
@@ -19,8 +21,8 @@ function App() {
         <Container>
           <Navbar.Brand href="#home">POP'SHOP</Navbar.Brand>
           <Nav className="me-auto">
-            <Link to="/">홈</Link>
-            <Link to="/detail">상세페이지</Link>
+            <Nav.Link onClick={() => {navigate('/')}}>홈</Nav.Link>
+            <Nav.Link onClick={() => {navigate('/detail')}}>상세페이지</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -44,16 +46,47 @@ function App() {
             </div>
           </>
         }/>
-        <Route path="/detail" element={
-          <>
-            <Detail />
-          </>
-        }/>
+
+        {/* 페이지 여러개 만들고 싳으면 URL 파라미터 써도됨! */}
+        <Route path="/detail/:id" element={ <Detail shoes={shoes} /> }/>
+
+        {/* <Route path="/about" element={ <About /> }>
+          <Route path="member" element={ <div>멤버임</div>} />
+          <Route path="location" element={ <div>위치정보임</div> } />
+        </Route>
+
+        <Route path="/event" element={ <EventPage /> }>
+          <Route path="one" element={ <p>첫 주문 시 양배추즙 서비스</p>} />
+          <Route path="two" element={ <p>생일기념 쿠폰받기</p> } />
+        </Route> */}
+
+        {/* 404 페이지 */}
+        {/* <Route path="/*" element={ <div>없는페이지입니다.</div> }/> */}
       </Routes>
-
-
     </div>
   );
+}
+
+function About() {
+  return (
+    <div>
+      <h4>회사정보임</h4>
+
+      {/* 구멍이라는 뜻. */}
+      <Outlet></Outlet>
+    </div>
+  )
+}
+
+function EventPage() {
+  return (
+    <div>
+      <h4>오늘의 이벤트</h4>
+
+      {/* 구멍이라는 뜻. */}
+      <Outlet></Outlet>
+    </div>
+  )
 }
 
 function Card(props) {
@@ -63,24 +96,6 @@ function Card(props) {
         <h4>{props.shoes.title}</h4>
         <p>{props.shoes.content}</p>
       </div>
-  )
-}
-
-function Detail() {
-  return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-6">
-          <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
-        </div>
-        <div className="col-md-6">
-          <h4 className="pt-5">상품명</h4>
-          <p>상품설명</p>
-          <p>120000원</p>
-          <button className="btn btn-danger">주문하기</button> 
-        </div>
-      </div>
-    </div> 
   )
 }
 
