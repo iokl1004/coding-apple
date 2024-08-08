@@ -31,10 +31,10 @@
 | 18   | 코드 길어지면 import export 하면 됩니다                  | 20240807(수) |
 | 19   | 저번시간 숙제 해설 (Card 컴포넌트 만들기)                | 20240807(수) |
 | 20   | 리액트 라우터 1 : 셋팅이랑 기본 라우팅                   | 20240807(수) |
-| 21   | 리액트 라우터 2 : navigate, nested routes, outlet        |
-| 22   | 리액트 라우터 3 : URL 파라미터로 상세페이지 100개 만들기 |
-| 23   | styled-components 쓰면 CSS 파일 없어도 되는데            |
-| 24   | Lifecycle과 useEffect 1                                  |
+| 21   | 리액트 라우터 2 : navigate, nested routes, outlet        | 20240808(목) |
+| 22   | 리액트 라우터 3 : URL 파라미터로 상세페이지 100개 만들기 | 20240808(목) |
+| 23   | styled-components 쓰면 CSS 파일 없어도 되는데            | 20240808(목) |
+| 24   | Lifecycle과 useEffect 1                                  | 20240808(목) |
 | 25   | Lifecycle과 useEffect 2                                  |
 | 26   | 리액트에서 서버와 통신하려면 ajax 1                      |
 | 27   | 리액트에서 서버와 통신하려면 ajax 2 : post, fetch        |
