@@ -35,9 +35,9 @@
 | 22   | 리액트 라우터 3 : URL 파라미터로 상세페이지 100개 만들기 | 20240808(목) |
 | 23   | styled-components 쓰면 CSS 파일 없어도 되는데            | 20240808(목) |
 | 24   | Lifecycle과 useEffect 1                                  | 20240808(목) |
-| 25   | Lifecycle과 useEffect 2                                  |
-| 26   | 리액트에서 서버와 통신하려면 ajax 1                      |
-| 27   | 리액트에서 서버와 통신하려면 ajax 2 : post, fetch        |
+| 25   | Lifecycle과 useEffect 2                                  | 20240809(금) |
+| 26   | 리액트에서 서버와 통신하려면 ajax 1                      | 20240809(금) |
+| 27   | 리액트에서 서버와 통신하려면 ajax 2 : post, fetch        | 20240809(금) |
 | 28   | 리액트에서 탭 UI 만들기                                  |
 | 29   | 멋있게 컴포넌트 전환 애니메이션 주는 법 (transition)     |
 | 30   | props 싫으면 Context API 써도 됩니다                     |
