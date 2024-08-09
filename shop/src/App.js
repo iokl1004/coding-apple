@@ -8,10 +8,11 @@ import './App.css';
 import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import Detail from './routes/Detail.js';
+import axios from 'axios'
 
 function App() {
 
-  const [shoes] = useState(data);
+  const [shoes, setShoes] = useState(data);
   const navigate =  useNavigate();
 
   return (
@@ -44,6 +45,19 @@ function App() {
                 }
               </div>
             </div>
+            <button onClick={() => {
+              axios.get('https://codingapple1.github.io/shop/data2.json') // ajax 성공
+              // axios.get('asd') // ajax 실패
+              // ajax 성공
+              .then((결과)=> {
+                    console.log(결과.data)
+                    const copy = [...shoes, ...결과.data];
+                    setShoes(copy);
+                  }) // 서버에서 가져온 data
+              . catch(() => {
+                console.log('실패함 ㅅㄱ')  // ajax 실패
+              })
+            }}>버튼</button>
           </>
         }/>
 
