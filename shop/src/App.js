@@ -13,6 +13,7 @@ import axios from 'axios'
 function App() {
 
   const [shoes, setShoes] = useState(data);
+  const [scount, setScount] = useState(2);  // 응용1. 버튼 2회 누를 때는 7, 8, 9번 상품 가져오려면?
   const navigate =  useNavigate();
 
   return (
@@ -46,18 +47,27 @@ function App() {
               </div>
             </div>
             <button onClick={() => {
-              axios.get('https://codingapple1.github.io/shop/data2.json') // ajax 성공
-              // axios.get('asd') // ajax 실패
-              // ajax 성공
-              .then((결과)=> {
-                    console.log(결과.data)
-                    const copy = [...shoes, ...결과.data];
-                    setShoes(copy);
-                  }) // 서버에서 가져온 data
-              . catch(() => {
-                console.log('실패함 ㅅㄱ')  // ajax 실패
-              })
-            }}>버튼</button>
+              // 응용2. 버튼 3회 누를 때는 상품 더 없다고 말해주기
+              if(scount < 4 ) {
+                // 응용1. 버튼 2회 누를 때는 7, 8, 9번 상품 가져오려면?
+                axios.get('https://codingapple1.github.io/shop/data'+[scount]+'.json') // ajax 성공
+                // axios.get('asd') // ajax 실패
+                // ajax 성공
+                .then((결과)=> {
+                  console.log(결과.data)
+                  const copy = [...shoes, ...결과.data];
+                  setShoes(copy);
+                  setScount(scount+1);  // 응용1. 버튼 2회 누를 때는 7, 8, 9번 상품 가져오려면?
+                  // 로딩중 UI 숨기기~
+                }) // 서버에서 가져온 data
+                .catch(() => {
+                  // 로딩중 UI 숨기기~
+                })
+              } else {
+                // 응용2. 버튼 3회 누를 때는 상품 더 없다고 말해주기
+                alert("상품이 더이상 존재하지 않습니다.");
+              }
+            }}>더보기</button>
           </>
         }/>
 

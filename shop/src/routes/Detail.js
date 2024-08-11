@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from 'styled-components'
+import { Nav } from 'react-bootstrap'
 
 // const YellowBtn = styled.button`
 //   background : ${ props => props.bg };
@@ -21,6 +22,9 @@ function Detail(props) {
     const shoesInfo = props.shoes.find(obj => obj.id == id);
     const [status, setStatus] = useState(true);
     const [textinput, setTextinput] = useState('');
+    const [tab, setTab] = useState(0);  // 탭 상태 저장해둘 state
+
+    const [fade2, setFade2] = useState('');
 
     // status 변수가 변경이 될때 setTimeout 함수를 실행 시킨다.
     useEffect(() => {
@@ -39,8 +43,16 @@ function Detail(props) {
       }
     }, [textinput]);
 
+    // 오늘의 숙제 : Detail 페이지 로드시 투명도 0에서 1로 애니메시연 주고 싶으면?
+    useEffect(() => {
+      setFade2('end')
+      return () => {
+        setFade2('')
+      }
+    }, [])
+
     return (
-      <div className="container">
+      <div className={'container start ' + fade2}>
         {/* <Box> */}
           {/* <YellowBtn bg='blue'>버튼</YellowBtn>
           <YellowBtn bg='orange'>버튼</YellowBtn> */}
@@ -67,8 +79,51 @@ function Detail(props) {
             <button className="btn btn-danger">주문하기</button> 
           </div>
         </div>
+        
+        {/* defaultActiveKey : 기본으로 눌려있을 버튼 */}
+        <Nav variant="tabs"  defaultActiveKey="link0">
+          <Nav.Item>
+            <Nav.Link onClick={() => setTab(0)} eventKey="link0">버튼0</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link onClick={() => setTab(1)} eventKey="link1">버튼1</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link onClick={() => setTab(2)} eventKey="link2">버튼2</Nav.Link>
+          </Nav.Item>
+        </Nav>
+        <TabContent tab={tab}/>
       </div>
     )
+}
+
+function TabContent({tab}) {
+  // 1. if문 사용하는 방법
+  // if(tab === 0) {
+  //   return <div>내용0</div>
+  // }
+  // else if(tab === 1) {
+  //   return <div>내용1</div>
+  // }
+  // else if(tab === 2) {
+  //   return <div>내용2</div>
+  // }
+
+  const [fade, setFade] = useState('');
+  useEffect(() => {
+    // 리액트의 automatic batching 기능
+    setTimeout(() => { setFade('end') }, 10)
+
+    return () => {
+      setFade('')
+    }
+  }, [tab])
+  // 2. if문을 사용하지 않는 방법
+  return (
+    <div className={'start ' + fade}>
+      {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]}
+    </div>
+  )
 }
 
 export default Detail;

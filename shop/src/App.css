@@ -9,6 +9,18 @@
   text-align: center;
 }
 
+.start {
+  opacity: 0;             /* 투명도 주는 스타일 */
+  /* transform: scale(0);        글자가 커지는 스타일 */
+}
+
+.end {
+  /* transform: scale(1);        글자가 커지는 스타일 */
+  /* transition: opacity 0.5s; opacity가 변경될 때 0.5초에 걸쳐서 변경해주세요  */
+  opacity: 1;               /* 투명도 주는 스타일 */
+  transition: all 0.5s; /* opacity가 변경될 때 0.5초에 걸쳐서 변경해주세요  */
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
