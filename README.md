@@ -37,9 +37,9 @@
 | 24   | Lifecycle과 useEffect 1                                  | 20240808(목) |
 | 25   | Lifecycle과 useEffect 2                                  | 20240809(금) |
 | 26   | 리액트에서 서버와 통신하려면 ajax 1                      | 20240809(금) |
-| 27   | 리액트에서 서버와 통신하려면 ajax 2 : post, fetch        |
-| 28   | 리액트에서 탭 UI 만들기                                  |
-| 29   | 멋있게 컴포넌트 전환 애니메이션 주는 법 (transition)     |
+| 27   | 리액트에서 서버와 통신하려면 ajax 2 : post, fetch        | 20240811(일) |
+| 28   | 리액트에서 탭 UI 만들기                                  | 20240811(일) |
+| 29   | 멋있게 컴포넌트 전환 애니메이션 주는 법 (transition)     | 20240811(일) |
 | 30   | props 싫으면 Context API 써도 됩니다                     |
 | 31   | 장바구니 페이지 만들기 & Redux 1 : Redux Toolkit 설치    |
 | 32   | Redux 2 : store에 state 보관하고 쓰는 법                 |
