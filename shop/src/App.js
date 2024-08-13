@@ -3,16 +3,21 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 // import Nav from 'react-bootstrap/Nav';
 // import Navbar from 'react-bootstrap/Navbar';
 // import bg from './img/bg.png';   // HTML에서 이미지 추가도 가능!
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import './App.css';
 import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import Detail from './routes/Detail.js';
 import axios from 'axios'
+import Cart from './routes/Cart.js' // 장바구니
+
+// state 보관함 이라고 생각하면됨.
+export let Context1 = createContext()
 
 function App() {
 
   const [shoes, setShoes] = useState(data);
+  const [재고] = useState([10, 11, 12]);  
   const [scount, setScount] = useState(2);  // 응용1. 버튼 2회 누를 때는 7, 8, 9번 상품 가져오려면?
   const navigate =  useNavigate();
 
@@ -25,6 +30,7 @@ function App() {
           <Nav className="me-auto">
             <Nav.Link onClick={() => {navigate('/')}}>홈</Nav.Link>
             <Nav.Link onClick={() => {navigate('/detail')}}>상세페이지</Nav.Link>
+            <Nav.Link onClick={() => {navigate('/cart')}}>Cart</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -72,7 +78,14 @@ function App() {
         }/>
 
         {/* 페이지 여러개 만들고 싳으면 URL 파라미터 써도됨! */}
-        <Route path="/detail/:id" element={ <Detail shoes={shoes} /> }/>
+        <Route path="/detail/:id" element={
+          // value에는 재고라는 스테이트를 공유하고 싶다면 입력하면됨.
+          <Context1.Provider value={{ 재고 }}>
+            <Detail shoes={shoes} />
+          </Context1.Provider>
+        } />
+
+        <Route path="/cart" element={ <Cart /> } />
 
         {/* <Route path="/about" element={ <About /> }>
           <Route path="member" element={ <div>멤버임</div>} />

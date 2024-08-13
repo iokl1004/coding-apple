@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import styled from 'styled-components'
-import { Nav } from 'react-bootstrap'
+import { useDispatch } from "react-redux";
+import styled from 'styled-components';
+import { Nav } from 'react-bootstrap';
+import { Context1 } from './../App.js';
+import { addItem } from "./../store.js";
 
 // const YellowBtn = styled.button`
 //   background : ${ props => props.bg };
@@ -17,84 +20,92 @@ import { Nav } from 'react-bootstrap'
 // `
 
 function Detail(props) {
-    // 부모단에서 선언한 id값 가져옴
-    const {id} = useParams();
-    const shoesInfo = props.shoes.find(obj => obj.id == id);
-    const [status, setStatus] = useState(true);
-    const [textinput, setTextinput] = useState('');
-    const [tab, setTab] = useState(0);  // 탭 상태 저장해둘 state
+  const dispatch = useDispatch();
 
-    const [fade2, setFade2] = useState('');
+  // 보관함을 해체해줌.
+  const {재고} = useContext(Context1)
 
-    // status 변수가 변경이 될때 setTimeout 함수를 실행 시킨다.
-    useEffect(() => {
-      setTimeout(() => { setStatus(false) }, 2000)
+  // 부모단에서 선언한 id값 가져옴
+  const {id} = useParams();
+  const shoesInfo = props.shoes.find(obj => obj.id == id);
+  const [status, setStatus] = useState(true);
+  const [textinput, setTextinput] = useState('');
+  const [tab, setTab] = useState(0);  // 탭 상태 저장해둘 state
 
-      // 클린업 펑션 : useEffect 동작 전에 실행되는 return ()=> {}
-      return () => {
-        console.log(12);
-      }
-    });
-    
-    // 오늘의 숙제 : <input>에 숫자말고 다른거 입력하면 그러지말라고 안내메시지(alert) 띄우기
-    useEffect(() => {
-      if (isNaN(textinput) === true) {
-        alert('그러지마세요');
-      }
-    }, [textinput]);
+  const [fade2, setFade2] = useState('');
 
-    // 오늘의 숙제 : Detail 페이지 로드시 투명도 0에서 1로 애니메시연 주고 싶으면?
-    useEffect(() => {
-      setFade2('end')
-      return () => {
-        setFade2('')
-      }
-    }, [])
+  // status 변수가 변경이 될때 setTimeout 함수를 실행 시킨다.
+  useEffect(() => {
+    setTimeout(() => { setStatus(false) }, 2000)
 
-    return (
-      <div className={'container start ' + fade2}>
-        {/* <Box> */}
-          {/* <YellowBtn bg='blue'>버튼</YellowBtn>
-          <YellowBtn bg='orange'>버튼</YellowBtn> */}
-        {/* </Box> */}
-        {
-          status === true
-          ? <div className="alert alert-warning">
-              2초이내 구매시 할인
-            </div>
-          : null
-        }
-        {/* {count}
+    // 클린업 펑션 : useEffect 동작 전에 실행되는 return ()=> {}
+    return () => {
+      // console.log(12);
+    }
+  });
+  
+  // 오늘의 숙제 : <input>에 숫자말고 다른거 입력하면 그러지말라고 안내메시지(alert) 띄우기
+  useEffect(() => {
+    if (isNaN(textinput) === true) {
+      alert('그러지마세요');
+    }
+  }, [textinput]);
 
-        <button onClick={() => { setCount(count+1)} }>버튼</button> */}
-        <div className="row">
-          <div className="col-md-6">
-            <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
+  // 오늘의 숙제 : Detail 페이지 로드시 투명도 0에서 1로 애니메시연 주고 싶으면?
+  useEffect(() => {
+    setFade2('end')
+    return () => {
+      setFade2('')
+    }
+  }, [])
+
+  return (
+    <div className={'container start ' + fade2}>
+      {/* <Box> */}
+        {/* <YellowBtn bg='blue'>버튼</YellowBtn>
+        <YellowBtn bg='orange'>버튼</YellowBtn> */}
+      {/* </Box> */}
+      {
+        status === true
+        ? <div className="alert alert-warning">
+            2초이내 구매시 할인
           </div>
-          <div className="col-md-6">
-            <input onChange={ (e) => setTextinput(e.target.value) } />
-            <h4 className="pt-5">{shoesInfo.title}</h4>
-            <p>{shoesInfo.content}</p>
-            <p>{shoesInfo.price}</p>
-            <button className="btn btn-danger">주문하기</button> 
-          </div>
+        : null
+      }
+      {/* {count}
+
+      <button onClick={() => { setCount(count+1)} }>버튼</button> */}
+      {/* {재고} */}
+      <div className="row">
+        <div className="col-md-6">
+          <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
         </div>
-        
-        {/* defaultActiveKey : 기본으로 눌려있을 버튼 */}
-        <Nav variant="tabs"  defaultActiveKey="link0">
-          <Nav.Item>
-            <Nav.Link onClick={() => setTab(0)} eventKey="link0">버튼0</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link onClick={() => setTab(1)} eventKey="link1">버튼1</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link onClick={() => setTab(2)} eventKey="link2">버튼2</Nav.Link>
-          </Nav.Item>
-        </Nav>
-        <TabContent tab={tab}/>
+        <div className="col-md-6">
+          <input onChange={ (e) => setTextinput(e.target.value) } />
+          <h4 className="pt-5">{shoesInfo.title}</h4>
+          <p>{shoesInfo.content}</p>
+          <p>{shoesInfo.price}</p>
+          <button className="btn btn-danger" onClick={() => {
+            dispatch(addItem( {id : shoesInfo.id, name : shoesInfo.title, count : 1} ))
+          }}>주문하기</button> 
+        </div>
       </div>
-    )
+      
+      {/* defaultActiveKey : 기본으로 눌려있을 버튼 */}
+      <Nav variant="tabs"  defaultActiveKey="link0">
+        <Nav.Item>
+          <Nav.Link onClick={() => setTab(0)} eventKey="link0">버튼0</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link onClick={() => setTab(1)} eventKey="link1">버튼1</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link onClick={() => setTab(2)} eventKey="link2">버튼2</Nav.Link>
+        </Nav.Item>
+      </Nav>
+      <TabContent tab={tab}/>
+    </div>
+  )
 }
 
 function TabContent({tab}) {
@@ -110,6 +121,8 @@ function TabContent({tab}) {
   // }
 
   const [fade, setFade] = useState('');
+  const {재고} = useContext(Context1)
+
   useEffect(() => {
     // 리액트의 automatic batching 기능
     setTimeout(() => { setFade('end') }, 10)
@@ -121,7 +134,11 @@ function TabContent({tab}) {
   // 2. if문을 사용하지 않는 방법
   return (
     <div className={'start ' + fade}>
-      {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]}
+      {   [<div>내용0</div>
+        , <div>내용1</div>
+        , <div>내용2</div>]
+        [tab]
+      }
     </div>
   )
 }
