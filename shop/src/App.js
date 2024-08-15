@@ -3,23 +3,54 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 // import Nav from 'react-bootstrap/Nav';
 // import Navbar from 'react-bootstrap/Navbar';
 // import bg from './img/bg.png';   // HTML에서 이미지 추가도 가능!
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import './App.css';
 import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import Detail from './routes/Detail.js';
 import axios from 'axios'
 import Cart from './routes/Cart.js' // 장바구니
+import { useQuery } from 'react-query';
 
 // state 보관함 이라고 생각하면됨.
 export let Context1 = createContext()
 
 function App() {
 
+  // 최근 본 상품 기능 추가
+  useEffect(()=> {
+    let getWatched = localStorage.getItem('watched')
+    if(getWatched === null)
+    {
+      localStorage.setItem('watched', JSON.stringify([]))
+    }
+  }, [])
+
+  // const obj = {name : 'jang'}
+  // localStorage.setItem('data', JSON.stringify(obj));  // array/object -> JSON 변환은 JSON.stringify()
+  // const obj2 = localStorage.getItem('data')
+  // console.log(JSON.parse(obj2).name);
+
   const [shoes, setShoes] = useState(data);
   const [재고] = useState([10, 11, 12]);  
   const [scount, setScount] = useState(2);  // 응용1. 버튼 2회 누를 때는 7, 8, 9번 상품 가져오려면?
   const navigate =  useNavigate();
+
+  // 장점1. 성공/실패/로딩중 쉽게 파악가능
+  // result.data
+  // result.isLoading
+  // result.error
+
+  let result = useQuery(['작명'], () =>
+    axios.get('https://codingapple1.github.io/userdata.json').then((a) => {
+    
+    // 장점3. 실패시 retry 알아서 해줌.
+    // axios.get('https://codingapple1.github.io/userdata123.json').then((a) => {
+      console.log('요청됨')
+      return a.data
+    }),
+    { staleTime : 2000 }  // 장점2. 틈만나면 자동으로 refetch 해줌.
+  )
 
   return (
     <div className='App'>
@@ -31,6 +62,13 @@ function App() {
             <Nav.Link onClick={() => {navigate('/')}}>홈</Nav.Link>
             <Nav.Link onClick={() => {navigate('/detail')}}>상세페이지</Nav.Link>
             <Nav.Link onClick={() => {navigate('/cart')}}>Cart</Nav.Link>
+          </Nav>
+          <Nav className="ms-auto">
+            <Nav.Link>
+              { result.isLoading && '로딩중'}
+              { result.error && '에러남'}
+              { result.data && (result.data.name + '님 환영합니다!')}
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -45,8 +83,8 @@ function App() {
               <div className='row'>
                 {
                   shoes.map((a, i) => {
-                    return (
-                      <Card shoes={shoes[i]} i={i}/>
+                   return (
+                      <Card key={i} shoes={shoes[i]} i={i}/>
                     )
                   })
                 }

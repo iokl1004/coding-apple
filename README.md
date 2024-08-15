@@ -40,16 +40,16 @@
 | 27   | 리액트에서 서버와 통신하려면 ajax 2 : post, fetch        | 20240811(일) |
 | 28   | 리액트에서 탭 UI 만들기                                  | 20240811(일) |
 | 29   | 멋있게 컴포넌트 전환 애니메이션 주는 법 (transition)     | 20240811(일) |
-| 30   | props 싫으면 Context API 써도 됩니다                     | 20240813(월) |
-| 31   | 장바구니 페이지 만들기 & Redux 1 : Redux Toolkit 설치    | 20240813(월) |
-| 32   | Redux 2 : store에 state 보관하고 쓰는 법                 | 20240813(월) |
-| 33   | Redux 3 : store의 state 변경하는 법                      | 20240813(월) |
-| 34   | Redux 4 : state가 object/array일 경우 변경하는 법        | 20240813(월) |
-| 35   | Redux 5 : 장바구니 기능 만들기 숙제 & 응용문제           | 20240813(월) |
-| 36   | 리액트에서 자주쓰는 if문 작성패턴 5개                    |
-| 37   | localStorage로 만드는 최근 본 상품 기능 1                |
-| 38   | localStorage로 만드는 최근 본 상품 기능 2                |
-| 39   | 실시간 데이터가 중요하면 react-query                     |
+| 30   | props 싫으면 Context API 써도 됩니다                     | 20240813(화) |
+| 31   | 장바구니 페이지 만들기 & Redux 1 : Redux Toolkit 설치    | 20240813(화) |
+| 32   | Redux 2 : store에 state 보관하고 쓰는 법                 | 20240813(화) |
+| 33   | Redux 3 : store의 state 변경하는 법                      | 20240813(화) |
+| 34   | Redux 4 : state가 object/array일 경우 변경하는 법        | 20240813(화) |
+| 35   | Redux 5 : 장바구니 기능 만들기 숙제 & 응용문제           | 20240813(화) |
+| 36   | 리액트에서 자주쓰는 if문 작성패턴 5개                    | 20240815(목) |
+| 37   | localStorage로 만드는 최근 본 상품 기능 1                | 20240815(목) |
+| 38   | localStorage로 만드는 최근 본 상품 기능 2                | 20240815(목) |
+| 39   | 실시간 데이터가 중요하면 react-query                     | 20240815(목) |
 | 40   | 성능개선 1 : 개발자도구 & lazy import                    |
 | 41   | 성능개선 2 : 재렌더링 막는 memo, useMemo                 |
 | 42   | 성능개선 3 : useTransition, useDeferredValue             |

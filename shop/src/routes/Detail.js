@@ -23,7 +23,7 @@ function Detail(props) {
   const dispatch = useDispatch();
 
   // 보관함을 해체해줌.
-  const {재고} = useContext(Context1)
+  // const {재고} = useContext(Context1)
 
   // 부모단에서 선언한 id값 가져옴
   const {id} = useParams();
@@ -33,6 +33,20 @@ function Detail(props) {
   const [tab, setTab] = useState(0);  // 탭 상태 저장해둘 state
 
   const [fade2, setFade2] = useState('');
+
+  useEffect(()=> {
+    let getWatched = localStorage.getItem('watched')
+    getWatched = JSON.parse(getWatched)
+    getWatched.push(shoesInfo.id)
+    getWatched = new Set(getWatched)
+    getWatched = Array.from(getWatched)
+    localStorage.setItem('watched', JSON.stringify(getWatched));
+  })
+
+  // const watched = JSON.parse(localStorage.getItem('watched'));
+  // watched.push(id);
+  // JSON.stringify(watched);
+  // localStorage.setItem('watched', JSON.stringify(watched));
 
   // status 변수가 변경이 될때 setTimeout 함수를 실행 시킨다.
   useEffect(() => {
@@ -54,6 +68,7 @@ function Detail(props) {
   // 오늘의 숙제 : Detail 페이지 로드시 투명도 0에서 1로 애니메시연 주고 싶으면?
   useEffect(() => {
     setFade2('end')
+
     return () => {
       setFade2('')
     }
