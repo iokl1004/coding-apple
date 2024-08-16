@@ -2,17 +2,27 @@ import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { changeName, increase } from "./../store/userSlice.js";
 import { addCount, minusCount } from "../store.js";
+import { memo, useMemo, useState } from "react";
+
+// memo? 이 컴포넌트는요 꼭 필요할때 재렌더링 해주세요
+let Child = memo( function() {
+    console.log('재렌더링됨')
+    return <div>자식임</div>
+})
 
 function Cart() {
+
     // const state = useSelector((state) => { return state})   // Redux store 가져와줌.
     const state = useSelector((state) => { return state})   // store의 user만 가져옴!
     const cart = state.cart;
 
     // store.js로 요청보내주는 함수임.
     const dispatch = useDispatch()
-
     return (
         <div>
+            {/* <Child count={count}></Child>
+            <button onClick={() => { setCount(count+1) }}>+</button> */}
+
             <h6>{state.user.name} {state.user.age}의 장바구니</h6>
             <button onClick={() => 
                 dispatch(increase(100))

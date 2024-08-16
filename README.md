@@ -50,9 +50,9 @@
 | 37   | localStorage로 만드는 최근 본 상품 기능 1                | 20240815(목) |
 | 38   | localStorage로 만드는 최근 본 상품 기능 2                | 20240815(목) |
 | 39   | 실시간 데이터가 중요하면 react-query                     | 20240815(목) |
-| 40   | 성능개선 1 : 개발자도구 & lazy import                    |
-| 41   | 성능개선 2 : 재렌더링 막는 memo, useMemo                 |
-| 42   | 성능개선 3 : useTransition, useDeferredValue             |
+| 40   | 성능개선 1 : 개발자도구 & lazy import                    | 20240816(금) |
+| 41   | 성능개선 2 : 재렌더링 막는 memo, useMemo                 | 20240816(금) |
+| 42   | 성능개선 3 : useTransition, useDeferredValue             | 20240816(금) |
 | 43   | PWA 셋팅해서 앱으로 발행하기 (모바일앱인척하기)          |
 | 44   | state 변경함수 사용할 때 주의점 : async                  |
 | 45   | custom hook으로 코드 재사용하기                          |
