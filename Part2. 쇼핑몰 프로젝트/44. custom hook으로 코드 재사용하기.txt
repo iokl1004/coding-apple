@@ -1,0 +1,172 @@
+44. custom hook으로 코드 재사용하기
+
+0:00 좋아요 버튼과 기능만들기
+3:06 함수로 코드 빼서 재사용하기
+6:01 함수 안에 정의된 변수, 함수를 바깥에서 사용하려면
+8:27 custom hook
+9:53 오늘의 숙제
+
+오늘의 숙제:
+하단 참고
+
+오늘은 custom hook을 알아볼 것인데
+"그냥 반복적인 부분들은 알아서 function으로 빼서 재사용하면 된다"가 오늘 강의 끝인데
+자바스크립트 기초없이 배워서 function 이런거 모르는 분들이 당연히 있을 수 있으니 같이 알아봅시다.
+
+좋아요 버튼 만들기
+▲ 이런 식으로 생긴 좋아요 버튼과 기능을 아무데나 만들어봅시다.
+쓸데없지만 오늘 수업을 위해 만드는 것입니다.
+
+function Detail(){
+  let [like, setLike] = useState(0)
+  
+  return (
+    (생략)
+    <h4>{like}</h4>
+    <button onClick={()=>{ setLike((a) => { return a + 1 }) }}>❤</button> 
+  )
+}
+state만들고 +1 버튼도 만들어봤습니다.
+
+(참고) state변경함수 사용할 때 안에 콜백함수를 넣을 수 있습니다.
+콜백함수안에 파라미터 하나를 작명할 수 있는데 (위에선 a라고 작명함)
+거기엔 기존 state값이 들어있습니다. 그래서 위처럼 코드짜도 like가 +1이 됩니다.
+state 이름 기억하기 싫으면 이렇게 써도 됩니다.
+
+function Detail(){
+  let [like, setLike] = useState(0)
+  function addLike(){
+    setLike((a) => { return a + 1 })
+  }
+  
+  return (
+    (생략)
+    <h4>{like}</h4>
+    <button onClick={()=>{ addLike() }}>❤</button> 
+  )
+}
+
+근데 좀 길어서 함수로 만들어서 사용해봤습니다.
+function 문법 안써본 분들이 있을까봐 잠깐 설명하자면
+function은 길고 복잡한 코드를 한 단어로 치환해주는 문법일 뿐입니다.
+그래서 위처럼 작성하면 앞으로 addLike() 라고 쓰면 그 안에 있던 setLike 어쩌구 코드가 실행됩니다.
+심심해서 만들어봤습니다.
+
+근데 여기서 문제가 하나 발생했다고 칩시다.
+방금 짰던 4줄의 자바스크립트 코드가 다른 컴포넌트에도 자주 필요해진 겁니다.
+그럼 어떻게 하죠?
+페이지마다 4줄의 코드를 복붙해도 되긴 하는데
+그게 귀찮으면 이것도 역시 함수로 만들어서 재사용하는 것도 나쁘지않습니다.
+
+4줄의 코드를 함수로 빼서 사용해보자
+(hooks/useLike.js)
+
+export function useLike(){
+  let [like, setLike] = useState(0)
+  function addLike(){
+    setLike((a) => { return a + 1 })
+  }
+}
+그래서 파일하나와 함수 하나 만들고 4줄의 코드를 담아놨습니다.
+그럼 이제 4줄의 코드가 필요한 곳마다 useLike() 라고 간단하게 쓰면 되겠군요.
+
+(Detail.js)
+
+function Detail(){
+  useLike()
+  
+  return (
+    (생략)
+    <h4>{like}</h4>
+    <button onClick={()=>{ addLike() }}>❤</button> 
+  )
+}
+
+import 해서 사용해봤습니다.
+근데 에러나는데요?
+like와 addLike라는 변수함수가 정의되지 않았다고 합니다.
+
+▲ like와 addLike는 useLike() 안에 잘 만들어놨는데 왜 없다는 것이죠?
+왜냐면 원래 함수안에 있던 변수는 함수 바깥에서 못씁니다.
+변수의 범위 때문에 그럴 뿐입니다.
+
+함수 안에 있던 변수들을 함수 바깥에서도 쓰고 싶으면 
+그 변수들을 함수 바깥으로 배출하면 되는데 배출하려면 return 키워드 이용하면 됩니다.
+
+(hooks/useLike.js)
+
+export function useLike(){
+  let [like, setLike] = useState(0)
+  function addLike(){
+    setLike((a) => { return a + 1 })
+  }
+
+  return [like, setLike]
+} 
+
+return 어쩌구 코드를 사용하면
+함수 실행하고난 자리에 어쩌구를 뱉어줍니다.
+그래서 like와 setLike를 뱉으라고 코드짜봤습니다.
+
+(Detail.js)
+function Detail(){
+  let [a, b] = useLike()
+  
+  return (
+    (생략)
+    <h4>{a}</h4>
+    <button onClick={()=>{ b() }}>❤</button> 
+  )
+}
+함수 실행하면 그 자리에 [like, setLike]를 뱉고 있기 때문에 그걸 destructuring 문법으로 각각 변수에 저장해서 사용해봤습니다.
+저는 a, b 변수라고 작명해서 거기 저장했는데 더 좋은 이름을 지어주는게 어떨까요.
+아무튼 이러면 함수 안에 있던 변수들을 바깥에서도 사용가능합니다.
+
+custom hook
+(hooks/useLike.js)
+
+export function useLike(){
+  let [like, setLike] = useState(0)
+  function addLike(){
+    setLike((a) => { return a + 1 })
+  }
+
+  return [like, setLike]
+} 
+1. 위처럼 useState, useEffect 등의 코드를 담고있는 함수 작명할 때는 use를 붙이는게 좋습니다.
+왜냐면 useState 이런 코드들은 항상 컴포넌트 함수 안에만 얌전히 적어야합니다.
+실수로 html 안에 넣거나 if문 안에 넣거나 그러면 큰일나기 때문에 그런 상황을 방지하기 위해서
+useState 이런 코드가 담겨있는 함수들도 이름을 use어쩌구로 짓는걸 권장합니다.
+실은 강제입니다. 한 번 이름 바꿔보십쇼
+
+2. useState, useEffect 이런걸 hook이라고 부르는데 
+useState, useEffect 등을 담고 있는 함수를 멋있는 말로 custom hook이라고 부릅니다.
+
+그래서 심심하면 코드들을 custom hook으로 만들어서 사용해봅시다.
+굳이 재사용이 필요없어도 연습삼아서 한번 해보시고
+참고로 react query같은 것들도 코드가 좀 길고 재사용이 잦기 때문에 
+custom hook으로 만들어놓고 재사용하는 경우들이 많습니다.
+
+오늘의 숙제:
+1. 서버에서 이름을 가져와서 html에 보여주는 코드를 작성해봅시다.
+하지만 다른 페이지에서도 자주 사용할 것 같으니 함수로 빼서 사용해봅시다.
+ 
+하지만 서버가 없기 때문에 public 폴더에 username.json 파일을 만들어두고
+그 파일엔 "Kim"이라는 단어하나를 저장해두면
+/username.json으로 GET 요청시 "Kim"을 가져올 수 있습니다.
+
+전 어떻게 했냐면
+export function useUsername(){
+  let [username, setUsername] = useState('');
+  useEffect(()=>{
+    axios.get('/username.json').then((r)=>{
+      setUsername(r.data)
+    })
+  },[])
+  return username;
+} 
+이렇게 함수 만들놓고 원하는 곳에서 useUsername() 을 사용했다고 합니다.
+유저 이름을 못가져오거나 실패하는 경우엔 뭘 보여줄지 예외상황 처리도 알아서 해봅시다.
+
+2. 심심하면 컴포넌트 안에 있는 코드들이 길고 복잡하다면 함수로 빼서 사용해봅시다.
+굳이 재사용안하는 코드도 그냥 더러워서 함수로 빼는 경우들도 많습니다.
