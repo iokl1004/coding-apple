@@ -6,7 +6,7 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import { lazy, Suspense, createContext, useState, useEffect } from 'react';
 import './App.css';
 import data from './data.js';
-import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import axios from 'axios'
 import { useQuery } from 'react-query';
 
