@@ -16,7 +16,7 @@ root.render(
   // react-query 설정
   <QueryClientProvider client={queryClient}>
     <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <App />
 
         {/* 성능개선 3 : useTransition, useDeferredValue */}
